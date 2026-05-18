@@ -1,0 +1,2 @@
+
+curl.exe -L https://aka.ms/wacdownload -o wac.exe

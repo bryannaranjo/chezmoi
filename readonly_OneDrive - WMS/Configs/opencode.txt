@@ -1,0 +1,7 @@
+#linux
+curl -fsSL https://opencode.ai/install | bash
+or 
+npm install -g opencode-ai
+
+#windows
+choco install opencode

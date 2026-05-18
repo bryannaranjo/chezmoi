@@ -1,0 +1,32 @@
+[plugin]
+deps = []
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:dracula"
+rev = "3edeb49"
+hash = "bb8dec086608c9244a3e02f48b9aed2e"
+
+[[flavor.deps]]
+use = "AdithyanA2005/nord"
+rev = "3a791e9"
+hash = "34f6d3974ebca066f4fe962715e0d78c"
+
+[[flavor.deps]]
+use = "tomer-ben-david/neon"
+rev = "50f2e60"
+hash = "1be68bb8f31844526e9533de48d2807d"
+
+[[flavor.deps]]
+use = "kmlupreti/ayu-dark"
+rev = "648a178"
+hash = "2ebdd4e3e00d6612bfa64dd7ca3dac4f"
+
+[[flavor.deps]]
+use = "bennyyip/gruvbox-dark"
+rev = "e5e1aef"
+hash = "79d0bda6b5ed25c572860fbcca6a9aad"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:catppuccin-frappe"
+rev = "3edeb49"
+hash = "3581c8e9da3a04dd6ba55b5a14403b66"

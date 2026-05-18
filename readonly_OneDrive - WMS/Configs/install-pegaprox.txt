@@ -1,0 +1,1 @@
+curl -sSL https://raw.githubusercontent.com/PegaProx/project-pegaprox/refs/heads/main/deploy.sh | sudo bash

@@ -1,0 +1,10 @@
+# essential
+sudo apt install stow git gh batcat
+
+# optional
+sudo apt install bluetui impala wiremix lynx ncdu lazygit
+
+
+spotifytui discordtui
+
+git: kurrier meetily mydia omnom faved memos torra notedicovery blinko bettershift sparkyfitness bentopdf filerise speakr  termix

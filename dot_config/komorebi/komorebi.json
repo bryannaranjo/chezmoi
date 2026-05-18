@@ -1,0 +1,94 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LGUG2Z/komorebi/v0.1.40/schema.json",
+  "app_specific_configuration_path": "$Env:USERPROFILE/.config/komorebi/applications.json",
+  "window_hiding_behaviour": "Cloak",
+  "cross_monitor_move_behaviour": "Insert",
+  "default_workspace_padding": 10,
+  "default_container_padding": 5,
+  "border": true,
+  "border_width": 8,
+  "border_offset": -1,
+  "theme": {
+    "palette": "Base16",
+    "name": "RosePine"      
+    },
+  "work_area_offsets": [
+    {
+      "left": 0,
+      "top": 0,    
+      "right": 0,
+      "bottom": 0  
+    }
+  ],
+  "floating_applications": [
+    {
+      "kind": "Class",
+      "id": "CASCADIA_HOSTING_WINDOW_CLASS",
+      "matching_strategy": "Equals"
+    },
+    {
+      "kind": "Class",
+      "id": "CabinetWClass",
+      "matching_strategy": "Equals"
+    },
+    {
+      "kind": "Class",
+      "id": "org.wezfurlong.wezterm",
+      "matching_strategy": "Equals"
+    },
+    {
+      "kind": "Class",
+      "id": "Notepad",
+      "matching_strategy": "Equals"
+    },
+    {
+      "kind": "Exe",
+      "id": "Code.exe",
+      "matching_strategy": "Equals"
+    }
+  ],
+  "stackbar": {
+    "height": 20,
+    "mode": "OnStack",
+    "tabs": {
+      "width": 200,
+      "focused_text": "#FFFFFF",
+      "unfocused_text": "#888888",
+      "background": "#1E1E1E"
+    }
+  },
+  "monitors": [
+    {
+      "workspaces": [
+        {
+          "name": "I",
+          "layout": "BSP"
+        },
+        {
+          "name": "II",
+          "layout": "VerticalStack"
+        },
+        {
+          "name": "III",
+          "layout": "HorizontalStack"
+        },
+        {
+          "name": "IV",
+          "layout": "UltrawideVerticalStack"
+        },
+        {
+          "name": "V",
+          "layout": "Rows"
+        },
+        {
+          "name": "VI",
+          "layout": "Grid"
+        },
+        {
+          "name": "VII",
+          "layout": "RightMainVerticalStack"
+        }
+      ]
+    }   
+  ]  
+}
