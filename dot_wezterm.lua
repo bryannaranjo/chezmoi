@@ -13,11 +13,22 @@ config.color_scheme = 'Catppuccin Frappe'
 
 -- A Nerd Font is required for yazi's file-type icons to render correctly.
 -- Install with: winget install --id=DEVCOM.JetBrainsMonoNerdFont
+-- Fallback order: primary font → broad Nerd Font symbol coverage →
+-- Windows emoji → plain mono fallbacks. The Symbols Nerd Font Mono entry
+-- covers any Material Design / Devicon / Octicon glyphs that the main
+-- JetBrainsMono Nerd Font build might be missing.
 config.font = wezterm.font_with_fallback {
   'JetBrainsMono Nerd Font',
+  'Symbols Nerd Font Mono',
+  'Segoe UI Emoji',
+  'Segoe UI Symbol',
   'JetBrains Mono',
   'Consolas',
 }
+
+-- Silence the "no fonts contain glyphs for codepoints" warning for
+-- truly unknown codepoints (after the fallback chain has tried).
+config.warn_about_missing_glyphs = false
 config.font_size = 11.0
 
 -- Trim padding so yazi gets more room.
@@ -28,10 +39,12 @@ config.window_padding = {
   bottom = 2,
 }
 
--- Hide tab bar when there's only one tab; keep it minimal when shown.
-config.hide_tab_bar_if_only_one_tab = true
-config.use_fancy_tab_bar = false
+-- Always show the tab bar, even with a single tab. Fancy style = native-
+-- looking rounded tabs at the top.
+config.hide_tab_bar_if_only_one_tab = false
+config.use_fancy_tab_bar = true
 config.tab_bar_at_bottom = false
+config.show_new_tab_button_in_tab_bar = true
 
 -- Cursor
 config.default_cursor_style = 'SteadyBlock'
@@ -55,7 +68,7 @@ config.audible_bell = 'Disabled'
 
 -- 80% opaque window. Lower = more see-through. Range: 0.0 (fully transparent)
 -- to 1.0 (fully opaque).
-config.window_background_opacity = 0.8
+config.window_background_opacity = 0.5
 
 -- Windows-only frosted-glass effect behind the transparent window.
 -- Options: 'Auto', 'Disable', 'Acrylic' (frosted glass), 'Mica' (subtle

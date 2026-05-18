@@ -2,9 +2,9 @@ watch_stylesheet: true
 watch_config: true
 debug: false
 komorebi:
-  start_command: "komorebic start"
+  start_command: "komorebic start && start \"\" \"C:\\Users\\bryan_naranjo\\.config\\komorebi\\komorebi.ahk\""
   stop_command: "komorebic stop"
-  reload_command: "komorebic stop && komorebic start"
+  reload_command: "komorebic stop && komorebic start && start \"\" \"C:\\Users\\bryan_naranjo\\.config\\komorebi\\komorebi.ahk\""
 bars:
   primary-bar:
     enabled: true
@@ -33,6 +33,7 @@ bars:
       left: [
         "home",
         "komorebi_workspaces",
+        "active_layout",
         "apps"
       ]
       center: [
@@ -58,15 +59,15 @@ widgets:
       label_alt: "<span>\uf437</span> {info[histograms][cpu_percent]}"
       update_interval: 2000
       histogram_icons:
-        - '\u2581' # 0%
-        - '\u2581' # 10%
-        - '\u2582' # 20%
-        - '\u2583' # 30%
-        - '\u2584' # 40%
-        - '\u2585' # 50%
-        - '\u2586' # 60%
-        - '\u2587' # 70%
-        - '\u2588' # 80%+
+        - "\u2581" # 0%
+        - "\u2581" # 10%
+        - "\u2582" # 20%
+        - "\u2583" # 30%
+        - "\u2584" # 40%
+        - "\u2585" # 50%
+        - "\u2586" # 60%
+        - "\u2587" # 70%
+        - "\u2588" # 80%+
       histogram_num_columns: 8
       callbacks:
         on_right: "exec cmd /c Taskmgr"
@@ -96,7 +97,7 @@ widgets:
       label: "<span>\uf476</span> {count}"
       label_alt: "{count} notifications"
       hide_empty: true
-      tooltip: false
+      tooltip: true
       callbacks:
         on_left: "toggle_notification"
         on_right: "do_nothing"
@@ -118,7 +119,7 @@ widgets:
       system_menu: true
       power_menu: true
       blur: true
-      border_color: "None"
+      border_color: "#babbf1"
       round_corners_type: "small"
       container_padding:
         top: 0
@@ -161,10 +162,34 @@ widgets:
         blur: True
         round_corners: True
         round_corners_type: "small"
-        border_color: "None"
+        border_color: "#babbf1"
         alignment: "center"
         direction: "down"
         distance: 6
+      container_padding:
+        top: 0
+        left: 8
+        bottom: 0
+        right: 8
+  active_layout:
+    type: "komorebi.active_layout.ActiveLayoutWidget"
+    options:
+      hide_if_offline: false
+      label: "<span>{icon}</span>"
+      # Limit to just these two; clicking cycles between them = toggle.
+      layouts: ['ultrawide_vertical_stack', 'bsp']
+      layout_icons:
+        bsp: ""                       # BSP / tiling icon
+        ultrawide_vertical_stack: ""  # Columns icon for ultrawide
+        floating: ""
+        paused: ""
+        monocle: ""
+        maximised: ""
+        tiling: ""
+      callbacks:
+        on_left: "next_layout"
+        on_middle: "flip_layout"
+        on_right: "prev_layout"
       container_padding:
         top: 0
         left: 8
@@ -179,8 +204,8 @@ widgets:
       label_workspace_populated_btn: "\uf444"
       label_default_name: "{index}"
       label_zero_index: false
-      hide_empty_workspaces: false
-      hide_if_offline: true
+      hide_empty_workspaces: true
+      hide_if_offline: false
       animation: false
       container_padding:
         top: 0
@@ -220,7 +245,7 @@ widgets:
         blur: true
         round_corners: true
         round_corners_type: "small"
-        border_color: "None"
+        border_color: "#babbf1"
         alignment: "right"
         direction: "down"
         distance: 6
@@ -230,7 +255,7 @@ widgets:
     options:
       label: "<span>{icon}</span> {level}"
       label_alt: "{volume}"
-      tooltip: false
+      tooltip: true
       volume_icons:
         - "\ueee8"
         - "\uf026"
@@ -244,7 +269,7 @@ widgets:
         blur: True
         round_corners: True
         round_corners_type: "small"
-        border_color: "None"
+        border_color: "#babbf1"
         alignment: "right"
         direction: "down"
         distance: 6
@@ -283,11 +308,12 @@ widgets:
         bottom: 0
         right: 8
       label: "{data}"
+      tooltip: true
       app_list:
         - { icon: "\uf422", launch: "search" }
         - { icon: "\ueb03", launch: "cmd /c Taskmgr" }
         #- { icon: "\uf1ff",launch: "C:\\Users\\amn\\AppData\\Local\\Discord\\Update.exe --processStart Discord.exe" }
-        - { icon: "\udb82\ude1e",launch: "C:\\Users\\amn\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe" }
+        - { icon: "\udb82\ude1e",launch: "C:\\Users\\bryan_naranjo\\AppData\\Local\\Programs\\Microsoft VS Code\\Code.exe" }
         - { icon: "\udb80\ude39",launch: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" }        
         - { icon: "\uf268", launch: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" }
         - { icon: "\uf489", launch: "wt" }
@@ -296,7 +322,8 @@ widgets:
     options:
       animation:
         enabled: true
-      icon_size: 16
+      icon_size: 20
+      tooltip: true
       ignore_apps:
         processes: []
         titles: []
@@ -351,6 +378,7 @@ widgets:
     type: "yasb.systray.SystrayWidget"
     options:
       class_name: "systray"
+      tooltip: true
       label_collapsed: "\ue8a9"
       label_expanded: "\ue76c"
       icon_size: 16
@@ -359,24 +387,3 @@ widgets:
       show_battery: true
       show_volume: true
       show_network: true
-  glazewm_workspaces:
-    type: "glazewm.workspaces.GlazewmWorkspacesWidget"
-    options:
-      offline_label: "GlazeWM Offline"
-      hide_empty_workspaces: true
-      hide_if_offline: false
-      enable_scroll_switching: true
-      btn_shadow:
-        enabled: true
-        color: "black"
-        radius: 3
-        offset: [ 1, 1 ]
-      app_icons: 
-        enabled_populated: false
-        enabled_active: false
-        size: 16
-        max_icons: 0
-        hide_label: false
-        hide_duplicates: false
-        hide_floating: false
-      animation: false

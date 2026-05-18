@@ -40,7 +40,7 @@ QToolTip {
     margin: 0;
 }
 .icon {
-    font-size: 14px;
+    font-size: 18px;
 }
 .widget .label {
     padding: 0px 2px;
@@ -81,10 +81,10 @@ QToolTip {
 .komorebi-workspaces .ws-btn {
     border: none;
     margin: 0;
-    font-size: 14px;
+    font-size: 18px;
     color: var(--blue);
-    height: 28px;
-    width: 18px;
+    height: 30px;
+    width: 22px;
 }
 .komorebi-workspaces .ws-btn:hover {
     color: var(--lavender);
@@ -96,7 +96,7 @@ QToolTip {
     color: var(--green);
 }
 .apps-widget .label {
-    font-size: 16px;
+    font-size: 18px;
     padding: 0 1px;
 }
 .apps-widget .label:hover {
@@ -243,7 +243,7 @@ QToolTip {
     background-color: rgba(255, 255, 255, 0.06);
 }
 .weather-widget .icon {
-    font-size: 18px;
+    font-size: 20px;
     margin: 0 4px 1px 0;
     color: var(--green);
 }
