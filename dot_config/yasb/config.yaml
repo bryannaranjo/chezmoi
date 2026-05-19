@@ -321,6 +321,7 @@ widgets:
         - { icon: "\udb80\ude39",launch: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" }        
         - { icon: "\uf268", launch: "C:\\Program Files\\Google\\Chrome\\Application\\chrome.exe" }
         - { icon: "\uf489", launch: "wt" }
+        - { icon: "\uf030", launch: "snippingtool" }
   taskbar:
     type: "yasb.taskbar.TaskbarWidget"
     options:
