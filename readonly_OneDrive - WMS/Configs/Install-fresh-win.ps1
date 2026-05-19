@@ -1,10 +1,68 @@
 # essentials
-choco install -y microsoft-windows-terminal nmap winscp notepadplusplus putty vscode nerd-fonts-firacode googlechrome wsl2 oh-my-posh git gh office365business firefox translucenttb nano twingate sysinternals yasb flow-launcher powertoys 
+
+$Apps = @(
+    "Microsoft.WindowsTerminal"
+    "Nmap.Nmap"
+    "WinSCP.WinSCP"
+    "Microsoft.VisualStudioCode"
+    "NerdFonts.FiraCode"
+    "Microsoft.WSL"
+    "JanDeDobbeleer.OhMyPosh"
+    "Git.Git"
+    "GitHub.cli"
+    "GNU.Nano"
+    "Microsoft.Sysinternals"
+    "FlowLauncher.FlowLauncher"
+    "Microsoft.PowerToys"
+    "7zip.7zip"
+    "twpayne.chezmoi"
+    "LGUG2Z.Komorebi"
+    "AmrDeveloper.Yasb"
+)
+
+foreach ($App in $Apps) {
+    winget install --id $App --accept-package-agreements --accept-source-agreements
+}
+
+
 
 # optional
-choco install -y keepass github-desktop virtualbox unetbootin gitkraken docker-desktop wsl-ubuntu-2404 everything windhawk lively rainmeter monterey komorebi
+$Apps = @(
+    # Core Dev, Editors & Systems
+    "Notepad++.Notepad++"
+    "SimonTatham.PuTTY"
+    "Google.Chrome"
+    "Microsoft.WSL"
+    "GitHub.cli"
+    "Microsoft.Office"
+    "Mozilla.Firefox"
+    "KeePassXITeam.KeePassXC"   # Modern cross-platform KeePass fork
+    "GitHub.GitHubDesktop"
+    "Oracle.VirtualBox"
+    "GlebBruchiy.UNetbootin"
+    "Axosoft.GitKraken"
+    "Docker.DockerDesktop"
+    
+    # Utilities & Workspace Search
+    "VOIDtools.Everything"
+    
+    # UI Customization & Tiling Shell Extensions
+    "TranslucentTB.TranslucentTB"
+    "Windhawk.Windhawk"
+    "Rockdanister.LivelyWallpaper"
+    "Rainmeter.Rainmeter"
+    "Eythaann.SeelenUI"
+    "FilesCommunity.Files"
+    "BeXCool.BeWidgets"
+    
+    # Network / Access
+    "Twingate.TwingateClient"
+)
 
-winget install -y seelen.seelenui filescommunity.files input-leap chezmoi 7zip.7zip
+# Run the Winget loop for standard installers
+foreach ($App in $Apps) {
+    winget install --id $App --accept-package-agreements --accept-source-agreements
+}
 
-thide
-bewidgets
+
+## thide

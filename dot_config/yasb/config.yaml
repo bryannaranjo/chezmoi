@@ -45,8 +45,12 @@ bars:
         "media",
         "cpu",
         "memory",
+        "disk",
         "weather",
-        "volume",       
+        "wifi",
+        "traffic",
+        "volume",
+        "battery",
         "notifications",
         "wallpapers",
         "power_menu"
@@ -220,7 +224,7 @@ widgets:
       api_key: "3bf4cf9a7c3f40d6b31174128242807"
       update_interval: 600
       hide_decimal: true
-      location: "USA weston 33326"
+      location: "33326"   # ZIP for Weston, FL — unambiguous lookup
       units: "imperial"
       callbacks:
         on_left: "toggle_card"
@@ -384,6 +388,136 @@ widgets:
       icon_size: 16
       show_unpinned: false
       show_unpinned_button: true
-      show_battery: true
+      show_battery: false  # disabled: dedicated battery widget handles this
       show_volume: true
-      show_network: true
+      show_network: false   # disabled: dedicated wifi widget handles network
+  wifi:
+    type: "yasb.wifi.WifiWidget"
+    options:
+      label: "<span>{wifi_icon}</span> {wifi_name} {wifi_strength}%"
+      label_alt: "<span>{wifi_icon}</span> {wifi_name}"
+      update_interval: 5000
+      get_exact_wifi_strength: false   # set true for live % (needs Win11 location permission)
+      hide_if_ethernet: false
+      ethernet_label: "<span>{wifi_icon}</span>"
+      ethernet_label_alt: "<span>{wifi_icon}</span> {ip_addr}"
+      ethernet_icon: ""
+      wifi_icons:
+        - "󰤮"   # 0%
+        - "󰤟"   # 1-24%
+        - "󰤢"   # 25-49%
+        - "󰤥"   # 50-74%
+        - "󰤨"   # 75-100%
+      callbacks:
+        on_left: "toggle_menu"
+        on_middle: "exec cmd.exe /c start ms-settings:network"
+        on_right: "toggle_label"
+      menu_config:
+        blur: true
+        round_corners: true
+        round_corners_type: "small"
+        border_color: "#babbf1"
+        alignment: "right"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+      container_padding:
+        top: 0
+        left: 8
+        bottom: 0
+        right: 8
+  battery:
+    type: "yasb.battery.BatteryWidget"
+    options:
+      label: "<span>{icon}</span> {percent}%"
+      label_alt: "<span>{icon}</span> {percent}% | {time_remaining}"
+      update_interval: 5000
+      time_remaining_natural: true
+      hide_unsupported: true
+      charging_options:
+        icon_format: "{charging_icon}"
+        blink_charging_icon: true
+        blink_interval: 700
+      status_thresholds:
+        critical: 10
+        low: 25
+        medium: 75
+        high: 95
+        full: 100
+      status_icons:
+        icon_charging: ""
+        icon_critical: ""
+        icon_low: ""
+        icon_medium: ""
+        icon_high: ""
+        icon_full: ""
+      callbacks:
+        on_left: "toggle_label"
+      container_padding:
+        top: 0
+        left: 8
+        bottom: 0
+        right: 8
+  disk:
+    type: "yasb.disk.DiskWidget"
+    options:
+      label: "<span></span> {volume_label} {space[used][percent]}"
+      label_alt: "<span></span> {volume_label} {space[free][gb]} free"
+      volume_label: "C"
+      update_interval: 60
+      decimal_display: 1
+      group_label:
+        volume_labels: ["C"]
+        show_label_name: true
+        blur: true
+        round_corners: true
+        round_corners_type: "small"
+        border_color: "#babbf1"
+        alignment: "right"
+        direction: "down"
+      disk_thresholds:
+        low: 50
+        medium: 75
+        high: 90
+      callbacks:
+        on_left: "toggle_group"
+        on_middle: "toggle_label"
+        on_right: "exec explorer C:\\"
+      container_padding:
+        top: 0
+        left: 8
+        bottom: 0
+        right: 8
+  traffic:
+    type: "yasb.traffic.TrafficWidget"
+    options:
+      label: "<span></span>  {download_speed}  {upload_speed}"
+      label_alt: "Down {today_downloaded} | Up {today_uploaded}"
+      update_interval: 1000
+      interface: "Auto"
+      hide_if_offline: false
+      speed_unit: "bits"
+      hide_decimal: true
+      speed_threshold:
+        min_upload: 1000
+        min_download: 1000
+      menu:
+        blur: true
+        round_corners: true
+        round_corners_type: "small"
+        border_color: "#babbf1"
+        alignment: "right"
+        direction: "down"
+        offset_top: 6
+        offset_left: 0
+        show_interface_name: true
+        show_internet_info: true
+      callbacks:
+        on_left: "toggle_menu"
+        on_middle: "do_nothing"
+        on_right: "toggle_label"
+      container_padding:
+        top: 0
+        left: 8
+        bottom: 0
+        right: 8

@@ -359,3 +359,326 @@ QToolTip {
     color: var(--green);
     margin-right: 4px;
 }
+.wifi-widget .icon {
+    color: var(--green);
+    margin-right: 4px;
+}
+.battery-widget .icon {
+    margin-right: 4px;
+}
+.disk-widget .icon {
+    color: var(--green);
+    margin-right: 4px;
+}
+.traffic-widget .icon {
+    color: var(--green);
+    margin-right: 4px;
+}
+
+/* Battery status colors (catppuccin frappe) */
+.battery-widget .icon.status-critical,
+.battery-widget .label.status-critical {
+    color: var(--red);
+}
+.battery-widget .icon.status-low,
+.battery-widget .label.status-low {
+    color: #fab387;          /* peach */
+}
+.battery-widget .icon.status-medium,
+.battery-widget .label.status-medium {
+    color: var(--yellow);
+}
+.battery-widget .icon.status-high,
+.battery-widget .label.status-high {
+    color: var(--green);
+}
+.battery-widget .icon.status-full,
+.battery-widget .label.status-full {
+    color: var(--green);
+}
+.battery-widget .icon.status-charging,
+.battery-widget .label.status-charging {
+    color: var(--blue);
+}
+.battery-widget .icon.status-charging.blink {
+    color: var(--lavender);
+}
+
+/* Disk status colors */
+.disk-widget .widget-container .label.status-low {
+    color: var(--green);
+}
+.disk-widget .widget-container .label.status-medium {
+    color: var(--yellow);
+}
+.disk-widget .widget-container .label.status-high {
+    color: #fab387;          /* peach */
+}
+.disk-widget .widget-container .label.status-critical {
+    color: var(--red);
+}
+
+/* Disk group popup */
+.disk-group {
+    background-color: rgba(24, 24, 37, 0.85);
+}
+.disk-group-row {
+    min-width: 220px;
+    max-width: 220px;
+    max-height: 40px;
+    padding: 0;
+    margin: 0;
+    border-radius: 6px;
+    border: 1px solid rgba(128, 128, 128, 0);
+}
+.disk-group-row:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.disk-group-label-bar {
+    max-height: 8px;
+    border: 0;
+    background-color: rgba(137, 180, 250, 0.1);
+    border-radius: 4px;
+}
+.disk-group-label-bar::chunk {
+    background-color: rgba(137, 180, 250, 0.45);
+    border-radius: 4px;
+}
+.disk-group-label {
+    font-size: 10px;
+    color: var(--text);
+}
+.disk-group-label-size {
+    font-size: 10px;
+    color: var(--overlay2);
+}
+
+/* Traffic popup menu (catppuccin frappe) */
+.traffic-menu {
+    background-color: rgba(24, 24, 37, 0.85);
+    min-width: 300px;
+}
+.traffic-menu .header {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    background-color: rgba(17, 17, 27, 0.6);
+}
+.traffic-menu .header .title {
+    padding: 8px;
+    font-size: 15px;
+    font-weight: 600;
+    font-family: 'Segoe UI';
+    color: var(--text);
+}
+.traffic-menu .header .reset-button {
+    font-size: 11px;
+    padding: 4px 8px;
+    margin-right: 8px;
+    font-family: 'Segoe UI';
+    border-radius: 4px;
+    font-weight: 600;
+    background-color: transparent;
+    border: none;
+    color: var(--text);
+}
+.traffic-menu .reset-button:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+}
+.traffic-menu .download-speed,
+.traffic-menu .upload-speed {
+    background-color: transparent;
+    padding: 4px 10px;
+    margin: 16px 12px 0 12px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+.traffic-menu .speed-separator {
+    max-width: 1px;
+    background-color: rgba(255, 255, 255, 0.15);
+    margin: 32px 0 16px 0;
+}
+.traffic-menu .upload-speed-value,
+.traffic-menu .download-speed-value {
+    font-size: 22px;
+    font-weight: 900;
+    font-family: 'Segoe UI';
+    color: var(--text);
+}
+.traffic-menu .upload-speed-unit,
+.traffic-menu .download-speed-unit {
+    font-size: 12px;
+    font-family: 'Segoe UI';
+    font-weight: 600;
+    color: var(--overlay2);
+}
+.traffic-menu .upload-speed-placeholder,
+.traffic-menu .download-speed-placeholder {
+    color: var(--surface2);
+    font-size: 11px;
+    font-family: 'Segoe UI';
+}
+.traffic-menu .section-title {
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--overlay2);
+    margin-bottom: 4px;
+    font-family: 'Segoe UI';
+}
+.traffic-menu .session-section,
+.traffic-menu .today-section,
+.traffic-menu .alltime-section {
+    margin: 8px 8px 0 8px;
+    padding: 0 10px 10px 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.traffic-menu .data-text {
+    font-size: 12px;
+    color: var(--text);
+    padding: 2px 0;
+    font-family: 'Segoe UI';
+}
+.traffic-menu .data-value {
+    font-weight: 600;
+    font-size: 12px;
+    color: var(--text);
+    font-family: 'Segoe UI';
+    padding: 2px 0;
+}
+.traffic-menu .interface-info {
+    font-size: 11px;
+    color: var(--overlay2);
+    padding: 8px 0;
+    font-family: 'Segoe UI';
+}
+.traffic-menu .internet-info {
+    font-size: 11px;
+    padding: 8px 0;
+    font-family: 'Segoe UI';
+    background-color: rgba(68, 68, 68, 0.1);
+}
+.traffic-menu .internet-info.connected {
+    background-color: rgba(166, 227, 161, 0.10);
+    color: var(--green);
+}
+.traffic-menu .internet-info.disconnected {
+    background-color: rgba(243, 139, 168, 0.10);
+    color: var(--red);
+}
+.traffic-widget .label.offline,
+.traffic-widget .icon.offline {
+    color: var(--surface2);
+}
+
+/* WiFi popup menu (catppuccin-frappe themed) */
+.wifi-menu {
+    font-family: 'Segoe UI';
+    background-color: rgba(24, 24, 37, 0.85);
+    max-height: 380px;
+    min-height: 380px;
+    min-width: 380px;
+}
+.wifi-menu .progress-bar {
+    max-height: 2px;
+    color: var(--blue);
+}
+.wifi-menu .header {
+    font-family: 'Segoe UI';
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 2px;
+    padding: 12px;
+    background-color: rgba(17, 17, 27, 0.6);
+    color: var(--text);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+}
+.wifi-menu .error-message {
+    font-family: 'Segoe UI';
+    font-size: 13px;
+    font-weight: 600;
+    padding: 12px;
+    background-color: var(--red);
+    color: var(--main);
+}
+.wifi-menu .wifi-list {
+    background-color: rgba(17, 17, 27, 0.6);
+    margin-right: 3px;
+}
+.wifi-menu .wifi-item {
+    min-height: 35px;
+    padding: 2px 12px;
+    margin: 2px 4px;
+    color: var(--text);
+}
+.wifi-menu .wifi-item:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+    border-radius: 6px;
+}
+.wifi-menu .wifi-item[active=true] {
+    background-color: rgba(137, 180, 250, 0.18);
+    border-radius: 6px;
+    min-height: 80px;
+}
+.wifi-menu .wifi-item .icon {
+    font-family: 'Segoe Fluent Icons';
+    font-size: 24px;
+    margin-right: 10px;
+    color: var(--text);
+}
+.wifi-menu .wifi-item .name {
+    font-family: 'Segoe UI';
+    font-size: 13px;
+    margin-right: 10px;
+    color: var(--text);
+}
+.wifi-menu .wifi-item .password {
+    font-family: 'Segoe UI';
+    background-color: rgba(255, 255, 255, 0.06);
+    color: var(--text);
+    font-size: 13px;
+    padding: 4px 6px;
+    border-radius: 4px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+}
+.wifi-menu .wifi-item .status,
+.wifi-menu .wifi-item .strength {
+    font-family: 'Segoe UI';
+    font-size: 12px;
+    color: var(--overlay2);
+}
+.wifi-menu .wifi-item .controls-container {
+    padding-top: 8px;
+}
+.wifi-menu .wifi-item .connect {
+    background-color: var(--blue);
+    color: var(--main);
+    padding: 4px 24px;
+    border-radius: 4px;
+    border: none;
+    font-size: 13px;
+    font-weight: 600;
+}
+.wifi-menu .wifi-item .connect:hover {
+    background-color: var(--lavender);
+}
+.wifi-menu .footer {
+    font-size: 12px;
+    font-weight: 600;
+    padding: 12px;
+    margin-top: 2px;
+    color: var(--overlay2);
+    background-color: rgba(17, 17, 27, 0.6);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
+.wifi-menu .footer .settings-button,
+.wifi-menu .footer .refresh-icon {
+    font-family: 'Segoe Fluent Icons';
+    background-color: transparent;
+    border: none;
+    min-width: 26px;
+    min-height: 26px;
+    color: var(--text);
+}
+.wifi-menu .footer .refresh-icon:hover,
+.wifi-menu .footer .settings-button:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    border-radius: 4px;
+}
