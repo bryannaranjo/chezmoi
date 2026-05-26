@@ -9,11 +9,11 @@ if !ProcessExist("komorebi.exe") {
     Sleep(1000)
 }
 
-; Hide the Windows taskbar via thide (skip if already running).
-if !ProcessExist("thide.exe") {
-    Sleep(2000)            ; brief pause so YASB/komorebi can settle first
-    Run("thide", , "Hide")
-}
+; Hide the Windows taskbar via `thide start`.
+; thide is a CLI tool that executes its subcommand and exits, so no
+; ProcessExist guard is needed (the process won't be running afterwards).
+Sleep(1500)            ; brief pause so YASB/komorebi can settle first
+Run('thide start', , "Hide")
 
 ; =============================================================================
 ; 1. PATH SETUP
