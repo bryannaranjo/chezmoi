@@ -46,7 +46,7 @@ sudo docker plugin rm $plugin_name
 sudo rm -rf /var/log/kasm-sidecar
 sudo rm -rf /var/run/kasm-sidecar
 
-  sudo docker volume rm kasm_db_1.18.1
+sudo docker volume rm kasm_db_1.18.1
 
 sudo docker rmi postgres:14-alpine
 sudo docker rmi kasmweb/nginx:latest

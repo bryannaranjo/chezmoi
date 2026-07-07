@@ -180,7 +180,7 @@ widgets:
       hide_if_offline: false
       label: "<span>{icon}</span>"
       # Limit to just these two; clicking cycles between them = toggle.
-      layouts: ['ultrawide_vertical_stack', 'bsp']
+      layouts: ['ultrawide_vertical_stack', 'columns', 'bsp']
       layout_icons:
         bsp: ""                       # BSP / tiling icon
         ultrawide_vertical_stack: ""  # Columns icon for ultrawide

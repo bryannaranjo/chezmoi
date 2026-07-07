@@ -1,9 +1,9 @@
 -- =============================================================================
--- Move to Folder — VLC Lua Extension
+-- Move to Subfolder — VLC Lua Extension
 -- =============================================================================
--- Adds an "Extensions > Move to Folder" menu item.
+-- Adds an "Extensions > Move to Subfolder..." menu item.
 -- While a video is playing, open the menu and pick one of the existing
--- folders that sit next to the file.  The file is moved immediately.
+-- subfolders that sit next to the file.  The file is moved immediately.
 --
 -- INSTALL: copy this file to
 --   %APPDATA%\vlc\lua\extensions\
@@ -20,11 +20,11 @@ local subfolders = {}    -- populated fresh each time the dialog opens
 
 function descriptor()
     return {
-        title       = "Move to Folder",
+        title       = "Move to Subfolder",
         version     = "1.0",
         author      = "",
-        shortdesc   = "Move the playing file into one of its sibling folders",
-        description = "Opens a dialog listing folders next to the current file "
+        shortdesc   = "Move the playing file into one of its sibling subfolders",
+        description = "Opens a dialog listing subfolders next to the current file "
                    .. "and moves the file to whichever one you pick.",
         capabilities = { "menu" }
     }
@@ -42,7 +42,7 @@ end
 -- ---------------------------------------------------------------------------
 
 function menu()
-    return { "Move to Folder" }
+    return { "Move to Subfolder..." }
 end
 
 function trigger_menu(id)
@@ -73,23 +73,11 @@ function current_file_path()
     local uri = item:uri()
     if not uri then return nil end
 
-    -- Decode percent-encoding (spaces, special chars, etc.)
+    -- VLC gives us a percent-encoded file URI, e.g. file:///C:/foo/bar%20baz.mkv
     local decoded = vlc.strings.decode_uri(uri)
 
-    -- Strip the "file://" scheme prefix, leaving either:
-    --   //server/share/path/file.mkv  (UNC network share)
-    --   /C:/path/to/file.mkv          (local drive)
-    local tail = decoded:gsub("^file://", "")
-
-    local path
-    if tail:match("^//") then
-        -- UNC path: file:////server/share/foo -> \\server\share\foo
-        path = tail:gsub("^//", "\\\\"):gsub("/", "\\")
-    else
-        -- Local path: /C:/foo/bar -> C:\foo\bar
-        path = tail:gsub("^/", ""):gsub("/", "\\")
-    end
-
+    -- Strip the file:/// scheme and normalise to backslashes
+    local path = decoded:gsub("^file:///", ""):gsub("/", "\\")
     return path
 end
 
@@ -128,7 +116,7 @@ end
 -- ---------------------------------------------------------------------------
 
 function show_message(msg)
-    local d = vlc.dialog("Move to Folder")
+    local d = vlc.dialog("Move to Subfolder")
     d:add_label(msg, 1, 1, 2, 1)
     d:add_button("OK", function() d:delete() end, 1, 2, 2, 1)
     d:show()
@@ -154,7 +142,7 @@ function show_dialog()
         return
     end
 
-    -- 2. Find sibling folders
+    -- 2. Find sibling subfolders
     subfolders = list_subfolders(parent)
     if #subfolders == 0 then
         show_message("No subfolders found in:\n" .. parent)
@@ -162,7 +150,7 @@ function show_dialog()
     end
 
     -- 3. Build dialog
-    dlg = vlc.dialog("Move to Folder")
+    dlg = vlc.dialog("Move to Subfolder")
     dlg:add_label("File:  " .. filename,  1, 1, 2, 1)
     dlg:add_label("Move to:", 1, 2, 2, 1)
 
@@ -183,7 +171,7 @@ end
 function do_move(src_path, parent, dd)
     local idx = dd:get_value()
     if not idx or not subfolders[idx] then
-        show_message("Please select a folder first.")
+        show_message("Please select a subfolder first.")
         return
     end
 

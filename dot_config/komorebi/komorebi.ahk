@@ -75,7 +75,7 @@ K(cmd) {
 ; =============================================================================
 ; 5. ULTRAWIDE & WORKSPACES
 ; =============================================================================
-!Enter::K("promote")     ; Promote to Center
+!Enter::K("promote-swap")     ; Promote to Center
 #^!Left::K("promote-window left")
 #^!Right::K("promote-window right") 
 !=::K("resize-axis horizontal increase") 
@@ -88,6 +88,11 @@ K(cmd) {
 !2::K("focus-workspace 1")
 !3::K("focus-workspace 2")
 !4::K("focus-workspace 3")
+
+!+1::Run("komorebic.exe move-to-workspace 0", , "Hide")
+!+2::Run("komorebic.exe move-to-workspace 1", , "Hide")
+!+3::Run("komorebic.exe move-to-workspace 2", , "Hide")
+!+4::Run("komorebic.exe move-to-workspace 3", , "Hide")
 
 ; =============================================================================
 ; 6. UTILITIES
