@@ -15,6 +15,9 @@ if !ProcessExist("komorebi.exe") {
 Sleep(1500)            ; brief pause so YASB/komorebi can settle first
 Run('thide start', , "Hide")
 
+Run("komorebic.exe mouse-follows-focus disable",, "Hide")
+
+
 ; =============================================================================
 ; 1. PATH SETUP
 ; =============================================================================
@@ -100,6 +103,18 @@ K(cmd) {
 !+r::K("reload-configuration")
 !+q::K("close")
 !+m::K("toggle-mouse-follows-focus")
+
+; Cycle to the next layout style
+!+.:: {
+    static toggle := false
+    toggle := !toggle
+    
+    if toggle {
+        k("change-layout ultrawide-vertical-stack")
+    } else {
+        k("change-layout columns")
+    }
+}
 
 ; Ctrl + Alt + T to launch WezTerm
 ^!t:: {
