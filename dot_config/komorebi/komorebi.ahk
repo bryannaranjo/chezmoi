@@ -1,4 +1,4 @@
-#Requires AutoHotkey v2.0
+    #Requires AutoHotkey v2.0
 #SingleInstance Force
 
 ; Start komorebi only if it's not already running. This makes the script
@@ -15,8 +15,8 @@ if !ProcessExist("komorebi.exe") {
 Sleep(1500)            ; brief pause so YASB/komorebi can settle first
 Run('thide start', , "Hide")
 
-Run("komorebic.exe mouse-follows-focus disable",, "Hide")
-
+; disable mouse follow at startupa
+Run('komorebic mouse-follows-focus disable',, 'Hide')
 
 ; =============================================================================
 ; 1. PATH SETUP
@@ -38,15 +38,27 @@ K(cmd) {
 ; 2. FOCUS & MOVEMENT (Alt + Arrows)
 ; =============================================================================
 !Left::K("focus left")
+!Right::K("focus right")
 !Down::K("focus down")
 !Up::K("focus up")
-!Right::K("focus right")
 
 ; Move windows (Alt + Shift + Arrows)
 !+Left::K("move left")
 !+Down::K("move down")
 !+Up::K("move up")
 !+Right::K("move right")
+
+; VIM style nav(HJKL)
+!h::K("focus left")
+!j::K("focus down")
+!k::K("focus up")
+!l::K("focus right")
+
+; Move windows 
+!+h::K("move left")
+!+j::K("move down")
+!+k::K("move up")
+!+l::K("move right")
 
 ; =============================================================================
 ; 3. STACKING / HIDING (The "Hide Behind" setup)
@@ -86,16 +98,20 @@ K(cmd) {
 !+=::K("resize-axis vertical increase") 
 !+-::K("resize-axis vertical decrease") 
 
-
 !1::K("focus-workspace 0")
 !2::K("focus-workspace 1")
 !3::K("focus-workspace 2")
 !4::K("focus-workspace 3")
 
-!+1::Run("komorebic.exe move-to-workspace 0", , "Hide")
-!+2::Run("komorebic.exe move-to-workspace 1", , "Hide")
-!+3::Run("komorebic.exe move-to-workspace 2", , "Hide")
-!+4::Run("komorebic.exe move-to-workspace 3", , "Hide")
+!+1::K("move-to-workspace 0")
+!+2::K("move-to-workspace 1")
+!+3::K("move-to-workspace 2")
+!+4::K("move-to-workspace 3")
+
+!^1::K("send-to-workspace 0")
+!^2::K("send-to-workspace 1")
+!^3::K("send-to-workspace 2")
+!^4::K("send-to-workspace 3")
 
 ; =============================================================================
 ; 6. UTILITIES
@@ -110,9 +126,9 @@ K(cmd) {
     toggle := !toggle
     
     if toggle {
-        k("change-layout ultrawide-vertical-stack")
+        K("change-layout ultrawide-vertical-stack")
     } else {
-        k("change-layout columns")
+        K("change-layout columns")
     }
 }
 
