@@ -1,8 +1,0 @@
-sudo apt install python3-pip
-sudo apt install pipx
-pipx install copyparty
-
-pipx ensurepath
-source ~/.bashrc
-
-apt install --no-install-recommends python3-pil ffmpeg

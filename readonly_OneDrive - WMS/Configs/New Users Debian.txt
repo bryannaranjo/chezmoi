@@ -1,5 +1,0 @@
-sudo adduser bryan
-
-sudo usermod -aG sudo bryan
-
-groups bryan

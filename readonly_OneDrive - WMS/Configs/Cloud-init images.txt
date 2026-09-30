@@ -1,9 +1,0 @@
-https://cloud-images.ubuntu.com/noble/current/noble-server-cloudimg-amd64.img
-https://cloud-images.ubuntu.com/questing/current/questing-server-cloudimg-amd64.img
-
-qm disk import 100 /var/lib/vz/template/iso/Ubuntu-cloud-init.img local-lvm
-
-
-https://dl.rockylinux.org/pub/rocky/9/images/x86_64/Rocky-9-GenericCloud.latest.x86_64.qcow2
-
-https://cloud-images.ubuntu.com/resolute/current/resolute-server-cloudimg-amd64.img
