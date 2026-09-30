@@ -1,14 +1,18 @@
 # 1. Initialize Oh My Posh
-oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/wopian.omp.json" | Invoke-Expression
+if (Get-Command oh-my-posh -EA 0) {
+    oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/wopian.omp.json" | Invoke-Expression
+}
 # oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/tokyonight_storm.omp.json" | Invoke-Expression
 #wopian tokyonight_storm
 
 
-# 2. Initialize Zoxide (Better CD)
-Invoke-Expression (& { (zoxide init powershell | Out-String) })
+# 2. Initialize Zoxide (Better CD) - replaces `cd`; `cdi` = interactive picker (needs fzf)
+if (Get-Command zoxide -EA 0) {
+    Invoke-Expression (& { (zoxide init powershell --cmd cd | Out-String) })
+}
 
 # 3. Enable Terminal Icons
-if ($PSVersionTable.PSVersion.Major -ge 7 ) {
+if ($PSVersionTable.PSVersion.Major -ge 7 -and (Get-Module -ListAvailable Terminal-Icons)) {
     Import-Module Terminal-Icons
 }
 
@@ -16,6 +20,16 @@ if ($PSVersionTable.PSVersion.Major -ge 7 ) {
 Set-PSReadLineOption -PredictionSource History   # Enables "Ghost text" from history
 Set-PSReadLineOption -PredictionViewStyle Inline # Options: Inline (Ghost text) or ListView (Menu)
 Set-PSReadLineOption -EditMode Windows           # Ensures standard Ctrl+C/V shortcuts work
+# Up/Down search history using what you have typed so far
+Set-PSReadLineKeyHandler -Key UpArrow   -Function HistorySearchBackward
+Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
+
+# 5. fzf + PSFzf: Ctrl+R = fuzzy history, Ctrl+T = fuzzy file search, Tab = fuzzy completion
+if ((Get-Command fzf -EA 0) -and (Get-Module -ListAvailable PSFzf)) {
+    Import-Module PSFzf
+    Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
+    Set-PSReadLineKeyHandler -Key Tab -ScriptBlock { Invoke-FzfTabCompletion }
+}
 
 # Yazi function
 function y {
@@ -38,7 +52,7 @@ function gs { git status }
 
 function ga { git add . }
 
-Remove-Alias gc -Force
+Remove-Item Alias:gc -Force -EA 0
 function gc { param($m) git commit -m "$m" }
 
 function gpush { git push }
@@ -47,7 +61,7 @@ function gpull { git pull }
 
 function g { __zoxide_z github }
 
-function gcl { git clone "$args" }
+function gcl { git clone @args }
 
 function gcom {
     git add .
@@ -59,6 +73,7 @@ function lazyg {
     git push
 }
 
+Remove-Item Alias:ls -Force -EA 0
 function ls { eza --icons --grid --long --all $args }
 function tree { eza --icons -T -L2 }
 

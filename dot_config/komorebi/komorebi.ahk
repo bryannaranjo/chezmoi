@@ -132,8 +132,12 @@ K(cmd) {
     }
 }
 
-; Ctrl + Alt + T to launch WezTerm
+; Ctrl + Alt + T to launch Terminal
 ^!t:: {
+    Run("wt.exe")
+}
+; Ctrl + Alt + shift + T to launch WezTerm
+^!+t:: {
     Run('"C:\Program Files\WezTerm\wezterm-gui.exe"')
 }
 
