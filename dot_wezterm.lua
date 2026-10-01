@@ -91,12 +91,47 @@ config.enable_kitty_graphics = true
 config.inactive_pane_hsb = { saturation = 0.8, brightness = 0.7 }
 config.scrollback_lines = 10000
 
--- Right-click the + button in the tab bar
-config.launch_menu = {
+-- Shells for the Leader+M menu (and the top of the right-click + menu)
+local shells = {
   { label = 'PowerShell 7',       args = { 'pwsh.exe', '-NoLogo' } },
   { label = 'Windows PowerShell', args = { 'powershell.exe', '-NoLogo' } },
   { label = 'Command Prompt',     args = { 'cmd.exe' } },
 }
+config.launch_menu = shells
+
+-- Short shell picker, used by Leader+M and by right-clicking the + button
+local shell_picker = act.InputSelector {
+  title = 'Open shell in new tab',
+  fuzzy = false,
+  choices = (function()
+    local c = {}
+    for i, sh in ipairs(shells) do table.insert(c, { id = tostring(i), label = sh.label }) end
+    return c
+  end)(),
+  action = wezterm.action_callback(function(window, pane, id, label)
+    if id then
+      window:perform_action(act.SpawnCommandInNewTab { args = shells[tonumber(id)].args }, pane)
+    end
+  end),
+}
+
+-- Right-click on + shows the short picker instead of the full launcher.
+-- Left-click still opens a normal new tab.
+wezterm.on('new-tab-button-click', function(window, pane, button, default_action)
+  if button == 'Right' then
+    window:perform_action(shell_picker, pane)
+    return false
+  end
+end)
+
+-- Trim the built-in launcher: hide the docker-desktop WSL distro (no usable
+-- shell) and the unused unix mux "Attach domain" entry.
+local wsl = {}
+for _, d in ipairs(wezterm.default_wsl_domains()) do
+  if not d.distribution:lower():find('docker') then table.insert(wsl, d) end
+end
+config.wsl_domains = wsl
+config.unix_domains = {}
 
 -- Optional backgrounds (uncomment one to try)
 -- config.window_background_gradient = { colors = { '#303446', '#232634' }, orientation = 'Vertical' }
@@ -146,7 +181,7 @@ config.keys = {
   -- Workspaces, opacity, launcher
   { key = 'w', mods = 'LEADER', action = act.ShowLauncherArgs { flags = 'FUZZY|WORKSPACES' } },
   { key = 'o', mods = 'LEADER', action = act.EmitEvent 'toggle-opacity' },
-  { key = 'm', mods = 'LEADER', action = act.ShowLauncher },
+  { key = 'm', mods = 'LEADER', action = shell_picker },
   -- Press Ctrl+B twice to send a real Ctrl+B to the shell
   { key = 'b', mods = 'LEADER|CTRL', action = act.SendKey { key = 'b', mods = 'CTRL' } },
   -- Tabs
