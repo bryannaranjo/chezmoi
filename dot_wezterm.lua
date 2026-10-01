@@ -176,7 +176,12 @@ config.leader = { key = 'b', mods = 'CTRL', timeout_milliseconds = 1000 }
 
 config.keys = {
   -- Panes
-  { key = '|', mods = 'LEADER|SHIFT', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
+  -- Split left/right: Leader then \ (same key as |, no Shift needed).
+  -- '|' is bound both with and without SHIFT because Windows keyboards
+  -- report it differently.
+  { key = '\\', mods = 'LEADER',       action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
+  { key = '|',  mods = 'LEADER',       action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
+  { key = '|',  mods = 'LEADER|SHIFT', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
   { key = '-', mods = 'LEADER',       action = act.SplitVertical   { domain = 'CurrentPaneDomain' } },
   { key = 'h', mods = 'LEADER', action = act.ActivatePaneDirection 'Left' },
   { key = 'j', mods = 'LEADER', action = act.ActivatePaneDirection 'Down' },
