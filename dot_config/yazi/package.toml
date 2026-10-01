@@ -1,0 +1,32 @@
+[plugin]
+deps = []
+
+[[flavor.deps]]
+use = "956MB/vscode-dark-modern"
+rev = "ab7190e"
+hash = "8769cd9dff67fa4d75e56d6bd8c6caff"
+
+[[flavor.deps]]
+use = "yazi-rs/flavors:catppuccin-frappe"
+rev = "20b47bf"
+hash = "cf561a067aecdb52865560ebd11c42f0"
+
+[[flavor.deps]]
+use = "AdithyanA2005/nord"
+rev = "34970be"
+hash = "faaf7c52439bf72e87e658a3e2f8ef81"
+
+[[flavor.deps]]
+use = "dangooddd/kanagawa"
+rev = "04985d1"
+hash = "8fab444fdbdecadb16422fc0a566fd22"
+
+[[flavor.deps]]
+use = "kalidyasin/yazi-flavors:tokyonight-night"
+rev = "bfd1b37"
+hash = "c9c36f5010613a38f1ff62e7c33c9b59"
+
+[[flavor.deps]]
+use = "BennyOe/tokyo-night"
+rev = "8e6296f"
+hash = "f9adc0d1e58cbcfc5f39046383a25d9f"
