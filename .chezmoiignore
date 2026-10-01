@@ -1,0 +1,25 @@
+# Windows-only yazi config (this machine's own ~/.config/yazi is managed separately below)
+{{- if ne .chezmoi.os "windows" }}
+AppData/Roaming/yazi/**
+{{- end }}
+
+# Linux/macOS yazi config (symlinked into ~/dots/yazi)
+{{- if eq .chezmoi.os "windows" }}
+.config/yazi/**
+{{- end }}
+
+# Windows-only vlc config (lua extension)
+{{- if ne .chezmoi.os "windows" }}
+AppData/Roaming/vlc/**
+{{- end }}
+
+# Linux/macOS vlc config (vlcrc, symlinked into ~/dots/vlc)
+{{- if eq .chezmoi.os "windows" }}
+.config/vlc/**
+{{- end }}
+
+# Windows-only tools (use ~/.config path convention on Windows, no Linux/macOS equivalent)
+{{- if ne .chezmoi.os "windows" }}
+.config/komorebi/**
+.config/powershell/**
+{{- end }}

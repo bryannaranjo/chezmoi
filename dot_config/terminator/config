@@ -1,0 +1,64 @@
+[global_config]
+[keybindings]
+[profiles]
+  [[default]]
+    background_darkness = 0.62
+    background_type = transparent
+    cursor_color = "#aaaaaa"
+    foreground_color = "#00ff00"
+    show_titlebar = False
+    palette = "#000000:#aa0000:#00aa00:#aa5500:#0000aa:#aa00aa:#00aaaa:#aaaaaa:#555555:#ff5555:#55ff55:#ffff55:#5555ff:#ff55ff:#55ffff:#ffffff"
+  [[white]]
+    background_color = "#ffffff"
+    cursor_color = "#aaaaaa"
+    foreground_color = "#000000"
+    show_titlebar = False
+  [[Transparent]]
+    background_darkness = 0.52
+    background_type = transparent
+    cursor_color = "#aaaaaa"
+    foreground_color = "#00ff00"
+    show_titlebar = False
+  [[Dark]]
+    background_color = "#282828"
+    cursor_color = "#aaaaaa"
+    foreground_color = "#ebdbb2"
+    show_titlebar = False
+[layouts]
+  [[default]]
+    [[[child0]]]
+      type = Window
+      parent = ""
+      order = 0
+      position = 192:193
+      maximised = False
+      fullscreen = False
+      size = 1180, 680
+      title = bryan@bnlul01: ~
+      last_active_term = e30ae40d-a5f7-488f-8067-1014033a649a
+      last_active_window = True
+    [[[terminal1]]]
+      type = Terminal
+      parent = child0
+      order = 0
+      profile = default
+      uuid = e30ae40d-a5f7-488f-8067-1014033a649a
+  [[New Layout]]
+    [[[child0]]]
+      type = Window
+      parent = ""
+      order = 0
+      position = 192:193
+      maximised = False
+      fullscreen = False
+      size = 1180, 680
+      title = bryan@bnlul01: ~
+      last_active_term = e30ae40d-a5f7-488f-8067-1014033a649a
+      last_active_window = True
+    [[[terminal1]]]
+      type = Terminal
+      parent = child0
+      order = 0
+      profile = default
+      uuid = e30ae40d-a5f7-488f-8067-1014033a649a
+[plugins]
