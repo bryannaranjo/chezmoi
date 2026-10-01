@@ -172,7 +172,8 @@ end)
 
 -- Leader key: press Ctrl+B, release, then the next key (like tmux).
 -- Used because komorebi owns most Alt shortcuts.
-config.leader = { key = 'b', mods = 'CTRL', timeout_milliseconds = 1000 }
+-- 2 seconds to press the next key after Ctrl+B
+config.leader = { key = 'b', mods = 'CTRL', timeout_milliseconds = 2000 }
 
 config.keys = {
   -- Panes
