@@ -3,6 +3,7 @@
 
 local wezterm = require 'wezterm'
 local config = wezterm.config_builder()
+local act = wezterm.action
 
 -- =========================================================================
 -- Appearance
@@ -66,8 +67,8 @@ config.initial_rows = 38
 config.window_close_confirmation = 'NeverPrompt'
 config.audible_bell = 'Disabled'
 
--- 80% opaque window. Lower = more see-through. Range: 0.0 (fully transparent)
--- to 1.0 (fully opaque).
+-- 50% opaque window (0.0 = fully transparent, 1.0 = solid).
+-- Toggle solid/see-through with Leader then O.
 config.window_background_opacity = 0.5
 
 -- Windows-only frosted-glass effect behind the transparent window.
@@ -83,10 +84,72 @@ config.win32_system_backdrop = 'Disable'
 config.enable_kitty_graphics = true
 
 -- =========================================================================
+-- Panes, scrollback & launch menu
+-- =========================================================================
+
+-- Dim panes that don't have focus
+config.inactive_pane_hsb = { saturation = 0.8, brightness = 0.7 }
+config.scrollback_lines = 10000
+
+-- Right-click the + button in the tab bar
+config.launch_menu = {
+  { label = 'PowerShell 7',       args = { 'pwsh.exe', '-NoLogo' } },
+  { label = 'Windows PowerShell', args = { 'powershell.exe', '-NoLogo' } },
+  { label = 'Command Prompt',     args = { 'cmd.exe' } },
+}
+
+-- Optional backgrounds (uncomment one to try)
+-- config.window_background_gradient = { colors = { '#303446', '#232634' }, orientation = 'Vertical' }
+-- config.win32_system_backdrop = 'Acrylic'
+
+-- =========================================================================
+-- Status bar: LEADER indicator + clock (Catppuccin Frappe colors)
+-- =========================================================================
+
+wezterm.on('update-status', function(window, pane)
+  local leader = window:leader_is_active() and '  LEADER  ' or ''
+  window:set_right_status(wezterm.format {
+    { Foreground = { Color = '#e5c890' } }, { Text = leader },
+    { Foreground = { Color = '#8caaee' } }, { Text = wezterm.strftime(' %a %H:%M ') },
+  })
+end)
+
+-- Leader + O: toggle between solid and see-through background
+wezterm.on('toggle-opacity', function(window)
+  local o = window:get_config_overrides() or {}
+  if o.window_background_opacity then
+    o.window_background_opacity = nil
+  else
+    o.window_background_opacity = 1.0
+  end
+  window:set_config_overrides(o)
+end)
+
+-- =========================================================================
 -- Key bindings
 -- =========================================================================
 
+-- Leader key: press Ctrl+B, release, then the next key (like tmux).
+-- Used because komorebi owns most Alt shortcuts.
+config.leader = { key = 'b', mods = 'CTRL', timeout_milliseconds = 1000 }
+
 config.keys = {
+  -- Panes
+  { key = '|', mods = 'LEADER|SHIFT', action = act.SplitHorizontal { domain = 'CurrentPaneDomain' } },
+  { key = '-', mods = 'LEADER',       action = act.SplitVertical   { domain = 'CurrentPaneDomain' } },
+  { key = 'h', mods = 'LEADER', action = act.ActivatePaneDirection 'Left' },
+  { key = 'j', mods = 'LEADER', action = act.ActivatePaneDirection 'Down' },
+  { key = 'k', mods = 'LEADER', action = act.ActivatePaneDirection 'Up' },
+  { key = 'l', mods = 'LEADER', action = act.ActivatePaneDirection 'Right' },
+  { key = 'z', mods = 'LEADER', action = act.TogglePaneZoomState },
+  { key = 'x', mods = 'LEADER', action = act.CloseCurrentPane { confirm = true } },
+  -- Workspaces, opacity, launcher
+  { key = 'w', mods = 'LEADER', action = act.ShowLauncherArgs { flags = 'FUZZY|WORKSPACES' } },
+  { key = 'o', mods = 'LEADER', action = act.EmitEvent 'toggle-opacity' },
+  { key = 'm', mods = 'LEADER', action = act.ShowLauncher },
+  -- Press Ctrl+B twice to send a real Ctrl+B to the shell
+  { key = 'b', mods = 'LEADER|CTRL', action = act.SendKey { key = 'b', mods = 'CTRL' } },
+  -- Tabs
   { key = 't', mods = 'CTRL|SHIFT', action = wezterm.action.SpawnTab 'CurrentPaneDomain' },
   { key = 'w', mods = 'CTRL|SHIFT', action = wezterm.action.CloseCurrentTab { confirm = false } },
   { key = 'F', mods = 'CTRL|SHIFT', action = wezterm.action.SpawnCommandInNewTab { args = { 'yazi' } } },
