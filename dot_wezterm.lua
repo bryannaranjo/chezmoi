@@ -97,6 +97,19 @@ local shells = {
   { label = 'Windows PowerShell', args = { 'powershell.exe', '-NoLogo' } },
   { label = 'Command Prompt',     args = { 'cmd.exe' } },
 }
+
+-- WSL distros (found automatically). docker-desktop is skipped: it has no
+-- usable shell. The unused unix mux "Attach domain" entry is removed too.
+local wsl = {}
+for _, d in ipairs(wezterm.default_wsl_domains()) do
+  if not d.distribution:lower():find('docker') then
+    table.insert(wsl, d)
+    table.insert(shells, { label = d.distribution .. ' (WSL)', domain = { DomainName = d.name } })
+  end
+end
+config.wsl_domains = wsl
+config.unix_domains = {}
+
 config.launch_menu = shells
 
 -- Short shell picker, used by Leader+M and by right-clicking the + button
@@ -110,7 +123,8 @@ local shell_picker = act.InputSelector {
   end)(),
   action = wezterm.action_callback(function(window, pane, id, label)
     if id then
-      window:perform_action(act.SpawnCommandInNewTab { args = shells[tonumber(id)].args }, pane)
+      local sh = shells[tonumber(id)]
+      window:perform_action(act.SpawnCommandInNewTab { args = sh.args, domain = sh.domain }, pane)
     end
   end),
 }
@@ -124,14 +138,6 @@ wezterm.on('new-tab-button-click', function(window, pane, button, default_action
   end
 end)
 
--- Trim the built-in launcher: hide the docker-desktop WSL distro (no usable
--- shell) and the unused unix mux "Attach domain" entry.
-local wsl = {}
-for _, d in ipairs(wezterm.default_wsl_domains()) do
-  if not d.distribution:lower():find('docker') then table.insert(wsl, d) end
-end
-config.wsl_domains = wsl
-config.unix_domains = {}
 
 -- Optional backgrounds (uncomment one to try)
 -- config.window_background_gradient = { colors = { '#303446', '#232634' }, orientation = 'Vertical' }
