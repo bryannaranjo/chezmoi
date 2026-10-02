@@ -1,9 +1,5 @@
-# 1. Initialize Oh My Posh
-if (Get-Command oh-my-posh -EA 0) {
-    oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/wopian.omp.json" | Invoke-Expression
-}
-# oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/tokyonight_storm.omp.json" | Invoke-Expression
-#wopian tokyonight_storm
+# 1. Oh My Posh + theme switcher (omp-next / omp-prev / omp-list / omp-set / omp-save)
+. (Join-Path $PSScriptRoot 'omp-themes.ps1')
 
 
 # 2. Initialize Zoxide (Better CD) - replaces `cd`; `cdi` = interactive picker (needs fzf)
