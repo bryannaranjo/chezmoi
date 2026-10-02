@@ -1,0 +1,73 @@
+#!/usr/bin/env python3
+"""Sync aether's generated theme (wallpaper, dark/light mode, accent color)
+to GNOME, since aether itself doesn't apply these on this desktop."""
+import glob
+import re
+import subprocess
+import sys
+
+THEME_DIR = f"{__import__('os').path.expanduser('~')}/.config/aether/theme"
+
+GNOME_ACCENTS = {
+    "blue": (0x35, 0x84, 0xe4),
+    "teal": (0x21, 0x90, 0xa4),
+    "green": (0x3a, 0x94, 0x4a),
+    "yellow": (0xc8, 0x88, 0x00),
+    "orange": (0xed, 0x5b, 0x00),
+    "red": (0xe6, 0x2d, 0x42),
+    "pink": (0xd5, 0x61, 0x99),
+    "purple": (0x91, 0x41, 0xac),
+    "slate": (0x6f, 0x83, 0x96),
+}
+
+def hex_to_rgb(h):
+    h = h.lstrip("#")
+    return tuple(int(h[i:i+2], 16) for i in (0, 2, 4))
+
+def nearest_accent(hex_color):
+    r, g, b = hex_to_rgb(hex_color)
+    best, best_dist = "slate", float("inf")
+    for name, (ar, ag, ab) in GNOME_ACCENTS.items():
+        dist = (r - ar) ** 2 + (g - ag) ** 2 + (b - ab) ** 2
+        if dist < best_dist:
+            best, best_dist = name, dist
+    return best
+
+def gsettings_set(schema, key, value):
+    subprocess.run(["gsettings", "set", schema, key, value], check=True)
+
+def main():
+    colors_path = f"{THEME_DIR}/colors.toml"
+    try:
+        with open(colors_path) as f:
+            content = f.read()
+    except FileNotFoundError:
+        print(f"No {colors_path}; run aether first.", file=sys.stderr)
+        sys.exit(1)
+
+    mode_match = re.search(r'^mode\s*=\s*"(\w+)"', content, re.M)
+    accent_match = re.search(r'^accent\s*=\s*"(#[0-9a-fA-F]{6})"', content, re.M)
+    mode = mode_match.group(1) if mode_match else "dark"
+    accent_hex = accent_match.group(1) if accent_match else "#3584e4"
+
+    backgrounds = glob.glob(f"{THEME_DIR}/backgrounds/*")
+    wallpaper = backgrounds[0] if backgrounds else None
+
+    color_scheme = "prefer-dark" if mode == "dark" else "default"
+    gsettings_set("org.gnome.desktop.interface", "color-scheme", color_scheme)
+    print(f"color-scheme -> {color_scheme}")
+
+    accent_name = nearest_accent(accent_hex)
+    gsettings_set("org.gnome.desktop.interface", "accent-color", accent_name)
+    print(f"accent-color -> {accent_name} (from {accent_hex})")
+
+    if wallpaper:
+        uri = f"file://{wallpaper}"
+        gsettings_set("org.gnome.desktop.background", "picture-uri", uri)
+        gsettings_set("org.gnome.desktop.background", "picture-uri-dark", uri)
+        print(f"wallpaper -> {wallpaper}")
+    else:
+        print("No wallpaper found to apply.", file=sys.stderr)
+
+if __name__ == "__main__":
+    main()

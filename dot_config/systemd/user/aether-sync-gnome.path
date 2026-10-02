@@ -1,0 +1,8 @@
+[Unit]
+Description=Watch aether's theme output and sync to GNOME on change
+
+[Path]
+PathChanged=%h/.config/aether/theme/colors.toml
+
+[Install]
+WantedBy=default.target

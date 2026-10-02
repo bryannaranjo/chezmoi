@@ -1,0 +1,6 @@
+[Unit]
+Description=Sync aether's generated theme to GNOME (wallpaper, dark mode, accent)
+
+[Service]
+Type=oneshot
+ExecStart=%h/.local/bin/aether-sync-gnome
