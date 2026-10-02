@@ -141,7 +141,9 @@ alias tree='eza --tree -L2'
 alias bat='batcat'
 alias fd='fdfind'
 
-#fastfetch
+if [[ -n "$KITTY_WINDOW_ID" && "$KITTY_WINDOW_ID" == "1" ]]; then
+    fastfetch
+fi
 export PATH="$HOME/.local/bin:$PATH"
 
 eval "$(starship init zsh)"
