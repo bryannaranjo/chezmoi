@@ -23,15 +23,23 @@ AppData/Roaming/vlc/**
 .config/komorebi/**
 .config/powershell/**
 .config/yasb/**
+AppData
+AppData/**
 {{- end }}
 
 # Linux/macOS-only configs. Several are symlinks into ~/dots, which Windows
 # can't create without Developer Mode (and ~/dots doesn't exist there).
 {{- if eq .chezmoi.os "windows" }}
-.config/kitty/**
 .config/kitty
+.config/kitty/**
 .config/neofetch
-.config/tmux
+.config/neofetch/**
+.config/systemd
+.config/systemd/**
+.config/terminator
 .config/terminator/**
+.config/tmux
+.config/tmux/**
+.local/bin/aether-sync-gnome
 .zshrc
 {{- end }}
