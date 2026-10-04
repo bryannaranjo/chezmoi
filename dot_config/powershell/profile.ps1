@@ -19,6 +19,8 @@ Set-PSReadLineOption -EditMode Windows           # Ensures standard Ctrl+C/V sho
 # Up/Down search history using what you have typed so far
 Set-PSReadLineKeyHandler -Key UpArrow   -Function HistorySearchBackward
 Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
+# Ctrl+Right accepts the next word of a suggestion (Right / End accept all of it)
+Set-PSReadLineKeyHandler -Chord 'Ctrl+RightArrow' -Function ForwardWord
 
 # 5. fzf + PSFzf: Ctrl+R = fuzzy history, Ctrl+T = fuzzy file search, Tab = fuzzy completion
 if ((Get-Command fzf -EA 0) -and (Get-Module -ListAvailable PSFzf)) {
