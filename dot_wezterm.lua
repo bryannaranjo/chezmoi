@@ -11,6 +11,10 @@ local act = wezterm.action
 
 -- Matches your yazi theme.toml (catppuccin-frappe).
 config.color_scheme = 'Catppuccin Frappe'
+-- Frappe's background (#303446) is blue-purple, which tints the see-through
+-- window. Override just the background with a neutral dark grey; text and
+-- other colors still come from Catppuccin Frappe. Delete this to go back.
+config.colors = { background = '#1c1c1c' }
 
 -- A Nerd Font is required for yazi's file-type icons to render correctly.
 -- Install with: winget install --id=DEVCOM.JetBrainsMonoNerdFont
@@ -67,9 +71,9 @@ config.initial_rows = 38
 config.window_close_confirmation = 'NeverPrompt'
 config.audible_bell = 'Disabled'
 
--- 50% opaque window (0.0 = fully transparent, 1.0 = solid).
+-- 80% opaque window (0.0 = fully transparent, 1.0 = solid).
 -- Toggle solid/see-through with Leader then O.
-config.window_background_opacity = 0.5
+config.window_background_opacity = 0.8
 
 -- Windows-only frosted-glass effect behind the transparent window.
 -- Options: 'Auto', 'Disable', 'Acrylic' (frosted glass), 'Mica' (subtle
@@ -140,7 +144,7 @@ end)
 
 
 -- Optional backgrounds (uncomment one to try)
--- config.window_background_gradient = { colors = { '#303446', '#232634' }, orientation = 'Vertical' }
+-- config.window_background_gradient = { colors = { '#262626', '#141414' }, orientation = 'Vertical' }
 -- config.win32_system_backdrop = 'Acrylic'
 
 -- =========================================================================
