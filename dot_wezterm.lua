@@ -71,9 +71,9 @@ config.initial_rows = 38
 config.window_close_confirmation = 'NeverPrompt'
 config.audible_bell = 'Disabled'
 
--- 80% opaque window (0.0 = fully transparent, 1.0 = solid).
+-- 90% opaque window (0.0 = fully transparent, 1.0 = solid).
 -- Toggle solid/see-through with Leader then O.
-config.window_background_opacity = 0.8
+config.window_background_opacity = 0.9
 
 -- Windows-only frosted-glass effect behind the transparent window.
 -- Options: 'Auto', 'Disable', 'Acrylic' (frosted glass), 'Mica' (subtle
