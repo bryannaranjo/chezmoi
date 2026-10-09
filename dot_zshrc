@@ -146,4 +146,5 @@ if [[ -n "$KITTY_WINDOW_ID" && "$KITTY_WINDOW_ID" == "1" ]]; then
 fi
 export PATH="$HOME/.local/bin:$PATH"
 
-eval "$(starship init zsh)"
+#eval "$(starship init zsh)"
+alias lg='lazygit'
